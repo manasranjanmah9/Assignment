@@ -94,7 +94,7 @@
                 android:layout_height="25dp"
                 android:layout_gravity="center"
                 android:contentDescription="@string/app_name"
-                android:src="@drawable/ic_right_arrow" />
+                app:srcCompat="@drawable/ic_right_arrow" />
 
         </LinearLayout>
 
