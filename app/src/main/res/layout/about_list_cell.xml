@@ -20,7 +20,7 @@
         android:layout_height="wrap_content"
         app:cardBackgroundColor="@color/about_card_cell_bg"
         app:cardCornerRadius="10dp"
-        app:cardElevation="5dp"
+        app:cardElevation="3dp"
         app:contentPadding="10dp"
         android:layout_marginTop="10dp">
 

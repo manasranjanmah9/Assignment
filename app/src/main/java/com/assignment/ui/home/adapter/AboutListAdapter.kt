@@ -3,17 +3,11 @@ package com.assignment.ui.home.adapter
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.ProgressBar
-import androidx.core.view.isVisible
 import androidx.databinding.DataBindingUtil
-import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.RecyclerView
 import com.assignment.R
 import com.assignment.data.About
 import com.assignment.databinding.AboutListCellBinding
-import com.assignment.util.CommonUtils.Companion.bindImageUrl
-import com.squareup.picasso.Picasso
 
 class AboutListAdapter(
     val context: Context,
