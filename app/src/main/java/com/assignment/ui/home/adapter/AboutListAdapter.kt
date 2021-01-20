@@ -32,8 +32,10 @@ class AboutListAdapter(
         if (about.description.isNullOrEmpty()) {
             about.description = "NA"
         }
+        if (about.imageHref.isNullOrEmpty()) {
+            about.imageHref = "NA"
+        }
         holder.binding.about = about
-        holder.binding.imageUrl = about.imageHref
 
         holder.binding.executePendingBindings()
 
@@ -43,7 +45,5 @@ class AboutListAdapter(
         return userListList.size
     }
 
-    class MyViewHolder(val binding: AboutListCellBinding) : RecyclerView.ViewHolder(binding.root) {
-
-    }
+    class MyViewHolder(val binding: AboutListCellBinding) : RecyclerView.ViewHolder(binding.root)
 }

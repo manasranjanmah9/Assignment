@@ -11,7 +11,7 @@
 
         <variable
             name="mainViewModel"
-            type="com.assignment.ui.home.MainViewModel" />
+            type="com.assignment.ui.home.model.MainViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

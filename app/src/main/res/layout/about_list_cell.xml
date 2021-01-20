@@ -8,10 +8,6 @@
         <variable
             name="about"
             type="com.assignment.data.About" />
-
-        <variable
-            name="imageUrl"
-            type="String" />
     </data>
 
 
@@ -79,7 +75,7 @@
                         android:layout_gravity="center|top"
                         android:layout_weight="30"
                         android:contentDescription="@string/app_name"
-                        android:scaleType="center"
+                        android:scaleType="fitCenter"
                         app:setImageUrl="@{about.imageHref}"
                         tools:srcCompat="@drawable/image_holder"/>
 

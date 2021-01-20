@@ -1,14 +1,13 @@
 package com.assignment.util
 
+import android.content.Context
+import android.net.ConnectivityManager
 import android.view.View
 import android.widget.ImageView
-import android.widget.ProgressBar
-import androidx.core.view.isVisible
 import androidx.databinding.BindingAdapter
-import androidx.recyclerview.widget.RecyclerView
 import com.assignment.R
-import com.assignment.ui.home.adapter.AboutListAdapter
 import com.squareup.picasso.Picasso
+
 
 class CommonUtils {
     companion object {
@@ -21,17 +20,10 @@ class CommonUtils {
                     .load(url)
                     .placeholder(R.drawable.image_holder)
                     .into(imageView)
+            } else {
+                imageView.setImageResource(R.drawable.image_holder)
             }
         }
-
-        /*@JvmStatic
-        @BindingAdapter(value = ["setAdapter"])
-        fun RecyclerView.bindRecyclerViewAdapter(adapter: RecyclerView.Adapter<AboutListAdapter.MyViewHolder>) {
-            this.run {
-                this.setHasFixedSize(true)
-                this.adapter = adapter
-            }
-        }*/
 
         @JvmStatic
         @BindingAdapter("android:visibility")
@@ -45,6 +37,13 @@ class CommonUtils {
             view.visibility = if (visible) View.INVISIBLE else View.VISIBLE
         }
 
+        fun isNetworkAvailable(context: Context): Boolean {
+            val connectivityManager =
+                context.applicationContext.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+            connectivityManager.activeNetworkInfo.also {
+                return it != null && it.isConnected
+            }
+        }
 
     }
 }

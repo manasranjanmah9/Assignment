@@ -1,10 +1,12 @@
 package com.assignment.network
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.assignment.data.About
+import com.assignment.data.db.AppDatabase
+import com.assignment.data.db.entities.AboutDao
 import com.assignment.network.response.BaseResponse
+import com.assignment.util.AppConstants
 import com.google.gson.GsonBuilder
 import com.google.gson.JsonElement
 import okhttp3.OkHttpClient
@@ -17,34 +19,38 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.util.*
 import java.util.concurrent.TimeUnit
-import kotlin.collections.ArrayList
 
-class NetworkRepository {
-    val FULL_URL = "https://dl.dropboxusercontent.com/s/2iodh4vg0eortkl/facts.json"
-    val BASE_URL = "https://dl.dropboxusercontent.com/"
+class NetworkRepository(appDatabase: AppDatabase) {
+
+    private var aboutDao: AboutDao = appDatabase.getAboutDao()
+    private var allData: LiveData<List<About>>
+
+    init {
+        allData = aboutDao.getAboutList()
+    }
+
+    fun getAboutListData(): LiveData<List<About>> = allData
 
     /*Getting 'OkHttpClient'*/
     private fun getOKHttpClient(): OkHttpClient {
         val httpClient = OkHttpClient.Builder()
         val interceptor = HttpLoggingInterceptor()
-        val okHttpClient = httpClient
+        return httpClient
             .readTimeout(1200, TimeUnit.SECONDS)
             .connectTimeout(1200, TimeUnit.SECONDS)
             .addInterceptor(interceptor)
             .build()
-        return okHttpClient
     }
 
-
-    fun getBaseResponse(_isLoading: MutableLiveData<Boolean>): LiveData<BaseResponse> {
+    fun getBaseResponse(
+        _isLoading: MutableLiveData<Boolean>
+    ): LiveData<BaseResponse> {
         val data = MutableLiveData<BaseResponse>()
         var baseResponse: BaseResponse
-        val response = ""
-
         try {
             _isLoading.value = true
             val retrofit = Retrofit.Builder()
-                .baseUrl(BASE_URL)
+                .baseUrl(AppConstants.BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .client(getOKHttpClient())
                 .build()
@@ -69,14 +75,23 @@ class NetworkRepository {
         return data
     }
 
+    /*
+    * parsing string to BaseResponse
+    * */
     private fun parseBaseResponse(response: String): BaseResponse {
         val mainTitle = JSONObject(response).optString("title")
         val dataArray = JSONObject(response).optJSONArray("rows")
+
+        val list = (
+                GsonBuilder().create()
+                    .fromJson(dataArray?.toString(), Array<About>::class.java)
+                    .toList())
+        Thread {
+            aboutDao.deleteAllData()
+            aboutDao.insertData(list)
+        }.start()
         return BaseResponse(
-            mainTitle, (
-                    GsonBuilder().create()
-                        .fromJson(dataArray?.toString(), Array<About>::class.java)
-                        .toList())
+            mainTitle, list
         )
     }
 
