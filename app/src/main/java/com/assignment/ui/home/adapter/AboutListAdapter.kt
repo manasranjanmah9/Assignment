@@ -1,6 +1,5 @@
 package com.assignment.ui.home.adapter
 
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
@@ -10,7 +9,6 @@ import com.assignment.data.About
 import com.assignment.databinding.AboutListCellBinding
 
 class AboutListAdapter(
-    val context: Context,
     private val userListList: List<About>
 ) : RecyclerView.Adapter<AboutListAdapter.MyViewHolder>() {
 

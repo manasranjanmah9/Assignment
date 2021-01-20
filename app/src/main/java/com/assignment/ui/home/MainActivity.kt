@@ -65,7 +65,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setAdapter(aboutList: List<About>) {
-        adapter = AboutListAdapter(this, aboutList)
+        adapter = AboutListAdapter(aboutList)
         mainActivityBinding.recyclerView.adapter = adapter
         mainActivityBinding.swipeRefreshLayout.isRefreshing = false
     }
