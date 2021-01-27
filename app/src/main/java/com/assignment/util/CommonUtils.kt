@@ -15,13 +15,11 @@ class CommonUtils {
         @JvmStatic
         @BindingAdapter("app:setImageUrl")
         fun bindImageUrl(imageView: ImageView, url: String?) {
-            if (!url.isNullOrEmpty()) {
+            url?.let {
                 Picasso.get()
                     .load(url)
                     .placeholder(R.drawable.image_holder)
                     .into(imageView)
-            } else {
-                imageView.setImageResource(R.drawable.image_holder)
             }
         }
 
@@ -41,7 +39,7 @@ class CommonUtils {
             val connectivityManager =
                 context.applicationContext.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
             connectivityManager.activeNetworkInfo.also {
-                return it != null && it.isConnected
+                return it!!.isConnected
             }
         }
 

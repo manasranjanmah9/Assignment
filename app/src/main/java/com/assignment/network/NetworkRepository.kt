@@ -70,6 +70,7 @@ class NetworkRepository(appDatabase: AppDatabase) {
             })
         } catch (e: Exception) {
             e.printStackTrace()
+            _isLoading.value = false
         }
 
         return data

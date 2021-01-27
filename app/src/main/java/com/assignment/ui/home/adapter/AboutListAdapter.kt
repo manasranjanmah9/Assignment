@@ -34,7 +34,6 @@ class AboutListAdapter(
             about.imageHref = "NA"
         }
         holder.binding.about = about
-
         holder.binding.executePendingBindings()
 
     }

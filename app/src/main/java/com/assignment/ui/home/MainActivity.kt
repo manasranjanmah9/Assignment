@@ -45,7 +45,7 @@ class MainActivity : AppCompatActivity() {
         if (CommonUtils.isNetworkAvailable(this)) {
             mainViewModel.getData().observe(this, Observer {
                 mainActivityBinding.progressBar.visibility = View.GONE
-                if (it != null) {
+                it?.let {
                     setActionbarTitle(it.title)
                     setAdapter(it.aboutList)
                 }
@@ -53,7 +53,7 @@ class MainActivity : AppCompatActivity() {
         } else {
             mainViewModel.getAboutListDataFromRoomDb().observe(this, Observer {
                 mainActivityBinding.progressBar.visibility = View.GONE
-                if (it != null && it.isNotEmpty()) {
+                it?.let {
                     setAdapter(it)
                 }
             })
