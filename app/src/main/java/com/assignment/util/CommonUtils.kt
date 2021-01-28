@@ -36,7 +36,7 @@ class CommonUtils {
         }
 
         fun isNetworkAvailable(context: Context): Boolean {
-            var isNetwork: Boolean = false
+            var isNetwork = false
             val connectivityManager =
                 context.applicationContext.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
             connectivityManager.activeNetworkInfo?.let {
